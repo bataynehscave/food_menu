@@ -2,37 +2,38 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Index</title>
-    <link rel="stylesheet" href="{% static 'food/style.css' %}">
-
-</head>
-<body >
-    
-
+    <link rel="stylesheet" href="{% static 'food/style.css' %}" />
+  </head>
+  <body>
     {% block body %}
-    {% for item in items %}
-    <a href="{%   url  'food:item-details' item.id  %}" class="text-decoration-none">
-        <div class="card mb-3 mt-3 mx-auto p-2" style="max-width: 800px;">
+      {% for item in items %}
+        <a href="{% url 'food:item-details' item.id %}" class="text-decoration-none">
+          <div class="card mb-3 mt-3 mx-auto p-2" style="max-width: 800px;">
             <div class="row g-0">
-              <div class="col-md-4">
-                <img  src="{{item.image}}" class="img-thumbnail  img-fluid rounded-start" style="height: 250px; width: 250px;" alt="...">
-              </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">{{item.name}}</h5>
-                  <p class="card-text">{{item.desc}}</p>
-                  <p class="card-text"><small class="text-body-secondary">${{item.price}}</small>  </p>
-                 
+              <div class="d-flex">
+                <div class="col-md-12">
+                  <img src="{{ item.image }}" class="img-thumbnail img-fluid rounded-start" style="height: 250px; width: 250px;" alt="..." />
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text">{{ item.desc }}</p>
+                    <p class="card-text">
+                      <small class="text-body-secondary">${{ item.price }}</small>
+                    </p>
+                    <a href="{% url 'food:edit-item' item.id %}" class="btn btn-info">Edit</a>
+                    <a href="{% url 'food:delete-item' item.id %}" class="btn btn-danger">delete</a>
+                  </div>
                 </div>
               </div>
             </div>
-
-        </div>
-    </a>
-    {% endfor %}
+          </div>
+        </a>
+      {% endfor %}
     {% endblock %}
-</body>
+  </body>
 </html>
