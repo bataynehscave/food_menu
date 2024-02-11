@@ -25,6 +25,9 @@
                     <p class="card-text">
                       <small class="text-body-secondary">${{ item.price }}</small>
                     </p>
+                    <p class="card-text">
+                      <small class="text-body-secondary">{{ item.user }}</small>
+                    </p>
                     <a href="{% url 'food:edit-item' item.id %}" class="btn btn-info">Edit</a>
                     <a href="{% url 'food:delete-item' item.id %}" class="btn btn-danger">delete</a>
                   </div>

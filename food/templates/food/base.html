@@ -11,7 +11,7 @@
   <body>
     <nav class="navbar navbar-dark bg-dark" data-bs-theme="dark">
       <div class="container-fluid">
-        <a href="url 'food:index'" class="navbar-brand">Foodie</a>
+        <a href="{% url 'food:index' %}" class="navbar-brand">Foodie</a>
 
         <ul class="nav">
           <a href="{% url 'food:create-item' %}" class="nav-item nav-link link-light">add an item</a>
