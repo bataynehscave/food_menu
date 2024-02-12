@@ -11,31 +11,40 @@
   <body>
     {% block body %}
       {% for item in items %}
-        <a href="{% url 'food:item-details' item.id %}" class="text-decoration-none">
-          <div class="card mb-3 mt-3 mx-auto p-2" style="max-width: 800px;">
-            <div class="row g-0">
-              <div class="d-flex">
-                <div class="col-md-12">
-                  <img src="{{ item.image }}" class="img-thumbnail img-fluid rounded-start" style="height: 250px; width: 250px;" alt="..." />
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text">{{ item.desc }}</p>
-                    <p class="card-text">
-                      <small class="text-body-secondary">${{ item.price }}</small>
-                    </p>
-                    <p class="card-text">
-                      <small class="text-body-secondary">{{ item.user }}</small>
-                    </p>
-                    <a href="{% url 'food:edit-item' item.id %}" class="btn btn-info">Edit</a>
-                    <a href="{% url 'food:delete-item' item.id %}" class="btn btn-danger">delete</a>
+        <div class="container">
+          <a href="{% url 'food:item-details' item.id %}" class="text-decoration-none">
+            <div class="card mb-3 mt-3 mx-auto p-2" style="max-width: 800px;">
+              <div class="row g-0">
+                <div class="d-flex">
+                  <div class="col-md-12">
+                    <img src="{{ item.image }}" class="img-thumbnail img-fluid rounded-start" style="height: 250px; width: 250px;" alt="..." />
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <div>
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">{{ item.desc }}</p>
+                        <p class="card-text">
+                          <small class="text-body-secondary">${{ item.price }}</small>
+                        </p>
+                        <p class="card-text">
+                          <small class="text-body-secondary">{{ item.user }}</small>
+                        </p>
+                        <a href="{% url 'food:item-details' item.id %}" class="btn btn-success">view</a>
+                        {% if item.user == user %}
+                          <a href="{% url 'food:edit-item' item.id %}" class="btn btn-info">Edit</a>
+                          <a href="{% url 'food:delete-item' item.id %}" class="btn btn-danger">delete</a>
+                        {% else %}
+
+                        {% endif %}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
+        </div>
       {% endfor %}
     {% endblock %}
   </body>

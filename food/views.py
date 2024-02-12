@@ -5,6 +5,7 @@ from food.models import Item
 from django.template import loader
 from .forms import ItemForm
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 # def index(request):
@@ -59,21 +60,35 @@ class ItemCreateView(CreateView):
     
 #     return render(request, 'food/item-form.html', {'form': form})
 
+@login_required
 def edit_item(request, id):
     item = Item.objects.get(id=id)
     form = ItemForm(request.POST or None, instance=item)
+    if(item.user != request.user):
+        from django.http import HttpResponseForbidden
+        return HttpResponseForbidden()
 
     if form.is_valid():
-        form.save()
-        return redirect('food:index')
+        if(item.user == request.user):
+            form.save()
+            return redirect('food:index')
 
     return render(request, 'food/item-form.html', {'form': form})
+
 
 def delete_item(request,id):
 
     item = Item.objects.get(id=id)
+    if(item.user != request.user):
+            from django.http import HttpResponseForbidden
+            return HttpResponseForbidden()
+    
     if request.method == 'POST':
-        item.delete()
-        return redirect('food:index')
+        if(item.user == request.user):
+            item.delete()
+            return redirect('food:index')
+ 
+
+
     
     return render(request, 'food/delete-item.html', {'item': item})
